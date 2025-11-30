@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "RebootCard",
+			"Path": "C:\\Users\\sorerusushi\\Desktop\\Soreru\\RebootCard\\code\\RebootCard\\source\\RebootCard.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "RebootCardEditor",
+			"Path": "C:\\Users\\sorerusushi\\Desktop\\Soreru\\RebootCard\\code\\RebootCard\\source\\RebootCardEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

@@ -63,3 +63,5 @@ program/output/RebootCard.log
 program/Saved/Config/CrashReportClient/UECC-Windows-A8E0FD7643912973BBA25891664AE5DC/CrashReportClient.ini
 program/Saved/Config/WindowsEditor/Engine.ini
 program/Saved/Logs/RebootCard.log
+program/.vs/RebootCard/v16/Browse.VC.db-shm
+program/.vs/RebootCard/v16/.suo

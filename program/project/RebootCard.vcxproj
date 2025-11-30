@@ -173,9 +173,6 @@
     <ClCompile Include="..\source\main\RebootCardGameModeBase.cpp" />
     <ClInclude Include="..\include\main\RebootCard.h" />
     <ClInclude Include="..\source\main\RebootCardGameModeBase.h" />
-    <None Include="..\..\Config\DefaultEditor.ini" />
-    <None Include="..\..\Config\DefaultEngine.ini" />
-    <None Include="..\..\Config\DefaultGame.ini" />
     <None Include="..\include\database\type_id.inc" />
     <None Include="..\source\RebootCard.Build.cs" />
     <None Include="..\source\RebootCard.Target.cs" />

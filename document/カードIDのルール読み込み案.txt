@@ -1,0 +1,10 @@
+攻撃力,Number
+防御力,Number
+属性,Zokusei
+レベル,Number
+,
+,
+,
+,
+,
+,

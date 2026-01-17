@@ -4,14 +4,31 @@
 ーモモモモモ墓
 ー魔魔魔魔魔デ
 
+遊戯王
 abbbbbc
 deeeeec
 fcicicF
 cEEEEED
 cBBBBBA
 
+ポケモンカードゲーム
+adcckkkkkkccc
+cbcccccccchhh
+cccccceccchhh
+HHHcccEcccccc
+HHHccccccccBc
+cccKKKKKKccDA
+
+デュエマ
+agggggc
+dsssssc
+cjjjjjc
+cJJJJJc
+cSSSSSD
+cGGGGGA
+
 a=デッキ
-b=魔法罠出せるよゾーン
+b=魔法0罠出せるよゾーン
 c=無
 d=墓地
 e=モンスター出せるよゾーン

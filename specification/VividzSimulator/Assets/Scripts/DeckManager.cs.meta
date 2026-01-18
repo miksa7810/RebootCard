@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b8fdd82404b3d7543a71919e9cf0fd71
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cardBackPrefab: {instanceID: 0}
+  - canvasTransform: {instanceID: 0}
+  - deckCsv: {fileID: 4900000, guid: dddac06965dbf2e49b4ec7ce9b930c4d, type: 3}
+  - deckZone: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

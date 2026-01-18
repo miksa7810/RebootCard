@@ -1,0 +1,4 @@
+repository "VividzSimulator/My project@15668276550389@cloud"
+  path "/"
+    br "/main"
+    co "/main"

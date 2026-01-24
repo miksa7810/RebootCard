@@ -1,2 +1,6 @@
-program/Library
-program/Logs
+.git
+.vs
+.vsconfig
+Library
+Logs
+Temp

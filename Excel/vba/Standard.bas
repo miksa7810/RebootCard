@@ -1,9 +1,28 @@
 Attribute VB_Name = "Standard"
-Const LABEL_ROW As Integer = 3
-Const DROPDOWN_ROW As Integer = 4
+Const LABEL_ROW As Integer = 4
+Const DROPDOWN_ROW As Integer = 5
 Const DATA_ROW As Integer = 6
-Const RULE_ROW As Integer = 1
+Const RULE_ROW As Integer = 2
 Const RULE_COLUMN As Integer = 4
+
+Sub UpdateFormula(ByVal Target As Range)
+    sCellName = Cells(DROPDOWN_ROW, Target.Column).Value
+    If sCellName <> "" Then
+        ' 名前が設定されている場合リストがあるか確認
+        sIsNames = False
+        For Each Data In ActiveWorkbook.Names
+            If sCellName = Data.name Then
+                sIsNames = True
+                Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1,MATCH(" & ActiveSheet.name & "!" & Target.Address & "," & Data.name & ", 0) - 1)"
+            End If
+        Next
+        If sIsNames = False Then
+            Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
+        End If
+    Else
+        Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
+    End If
+End Sub
 
 ' ルールに応じてrefシートを更新
 Sub UpdateRef()

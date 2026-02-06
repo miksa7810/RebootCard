@@ -32,4 +32,3 @@ Private Sub Workbook_Open()
         ThisWorkbook.VBProject.VBComponents.Import ThisWorkbook.path & "\vba\" & sLineText(i)
     Next
 End Sub
-

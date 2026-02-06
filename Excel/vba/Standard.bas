@@ -20,7 +20,7 @@ Sub SetDropDown()
             ' 名前が設定されている場合リストがあるか確認
             sIsNames = False
             For Each Data In ActiveWorkbook.Names
-                If sCellName = Data.Name Then
+                If sCellName = Data.name Then
                     sIsNames = True
                 End If
             Next
@@ -42,8 +42,8 @@ End Sub
 ' ルールをロード
 Sub LoadRule()
     Call SelectRule
-    Call SetDropDown
     Call UpdateRef
+    Call SetDropDown
 End Sub
 
 ' ルールを選択
@@ -51,7 +51,7 @@ Sub SelectRule()
     ' フォルダを選ぶ
     Dim sFolderPath As String
     With Application.FileDialog(msoFileDialogFolderPicker)
-        .InitialFileName = ThisWorkbook.Path & "\output"
+        .InitialFileName = ThisWorkbook.path & "\output"
         ' フォルダが選ばれたらフォルダ名を登録
         If .Show = -1 Then
             sFolderPath = .SelectedItems(1)
@@ -64,7 +64,7 @@ End Sub
 ' データ読み込み
 Sub LoadData()
     ' テキストを開く
-    sFileName = ThisWorkbook.Path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).Name & ".txt"
+    sFileName = ThisWorkbook.path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).name & ".txt"
     Dim sAllText As String
     Dim sLineMax As Integer
     Dim sCellMax As Integer
@@ -95,7 +95,7 @@ Sub Output()
     Dim sColumn As Integer
     
     ' テキストを開く
-    sFileName = ThisWorkbook.Path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).Name & ".txt"
+    sFileName = ThisWorkbook.path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).name & ".txt"
     With CreateObject("ADODB.Stream")
         .Charset = "UTF-8"
         .Open

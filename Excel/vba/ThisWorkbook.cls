@@ -26,6 +26,9 @@ Private Sub Workbook_Open()
     
     ' 候補に記載されているVBAモジュールをインポート
     For i = 0 To sLineMax
+        With ThisWorkbook.VBProject.VBComponents
+            .Remove .Item(Left(sLineText(i), InStrRev(sLineText(i), ".") - 1))
+        End With
         ThisWorkbook.VBProject.VBComponents.Import ThisWorkbook.path & "\vba\" & sLineText(i)
     Next
 End Sub

@@ -5,6 +5,18 @@ Const DATA_ROW As Integer = 6
 Const RULE_ROW As Integer = 2
 Const RULE_COLUMN As Integer = 4
 
+' 出力シートの数式を生成しなおし
+Sub CreateFormula()
+    sDataNum = Cells(Rows.Count, "A").End(xlUp).Row
+    sColumn = Cells(LABEL_ROW, Columns.Count).End(xlToLeft).Column
+    For i = 1 To sColumn
+        For j = DATA_ROW To sDataNum
+            Call UpdateFormula(Range(Cells(j, i), Cells(j, i)))
+        Next
+    Next
+End Sub
+
+' 出力シートの数式を更新
 Sub UpdateFormula(ByVal Target As Range)
     sCellName = Cells(DROPDOWN_ROW, Target.Column).Value
     If sCellName <> "" Then

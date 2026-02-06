@@ -1,22 +1,67 @@
 Attribute VB_Name = "Standard"
-Const START_ROW As Integer = 6
+Const LABEL_ROW As Integer = 3
+Const DROPDOWN_ROW As Integer = 4
+Const DATA_ROW As Integer = 6
 Const RULE_ROW As Integer = 1
 Const RULE_COLUMN As Integer = 4
 
+' ルールに応じてrefシートを更新
+Sub UpdateRef()
+
+End Sub
+
+' ルールに応じてドロップダウンを設定
+Sub SetDropDown()
+    sDataNum = Cells(Rows.Count, "A").End(xlUp).Row
+    sColumn = Cells(LABEL_ROW, Columns.Count).End(xlToLeft).Column
+    For i = 1 To sColumn
+        sCellName = Cells(DROPDOWN_ROW, i).Value
+        If sCellName <> "" Then
+            ' 名前が設定されている場合リストがあるか確認
+            sIsNames = False
+            For Each Data In ActiveWorkbook.Names
+                If sCellName = Data.Name Then
+                    sIsNames = True
+                End If
+            Next
+            ' 範囲指定してデータ設定
+            For j = 1 To sDataNum
+                With Cells(j, i).Validation
+                    .Delete
+                    If sIsNames = True Then
+                        .Add Type:=xlValidateList, _
+                            Operator:=xlEqual, _
+                            Formula1:="=" & sCellName
+                    End If
+                End With
+            Next
+        End If
+    Next
+End Sub
+
+' ルールをロード
 Sub LoadRule()
+    Call SelectRule
+    Call SetDropDown
+    Call UpdateRef
+End Sub
+
+' ルールを選択
+Sub SelectRule()
     ' フォルダを選ぶ
-    Dim folderPath As String
+    Dim sFolderPath As String
     With Application.FileDialog(msoFileDialogFolderPicker)
         .InitialFileName = ThisWorkbook.Path & "\output"
         ' フォルダが選ばれたらフォルダ名を登録
         If .Show = -1 Then
-            folderPath = .SelectedItems(1)
-            folderName = Mid(folderPath, InStrRev(folderPath, "\") + 1)
-            Cells(RULE_ROW, RULE_COLUMN).Value = folderName
+            sFolderPath = .SelectedItems(1)
+            sFolderName = Mid(sFolderPath, InStrRev(sFolderPath, "\") + 1)
+            Cells(RULE_ROW, RULE_COLUMN).Value = sFolderName
         End If
     End With
 End Sub
 
+' データ読み込み
 Sub LoadData()
     ' テキストを開く
     sFileName = ThisWorkbook.Path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).Name & ".txt"
@@ -39,14 +84,15 @@ Sub LoadData()
         sCellText = Split(sLineText(i), ",")
         sCellMax = UBound(sCellText)
         For j = 0 To sCellMax
-            Cells(i + START_ROW, j + 1).Value = sCellText(j)
+            Cells(i + DATA_ROW, j + 1).Value = sCellText(j)
         Next
     Next
 End Sub
 
+' 出力
 Sub Output()
-    Dim Row As Integer
-    Dim Column As Integer
+    Dim sRow As Integer
+    Dim sColumn As Integer
     
     ' テキストを開く
     sFileName = ThisWorkbook.Path & "\output\" & Cells(RULE_ROW, RULE_COLUMN) & "\" & Worksheets(1).Name & ".txt"
@@ -56,21 +102,21 @@ Sub Output()
         .LineSeparator = -1
         
         ' カード名・入力欄の端
-        Row = START_ROW
-        Column = Cells(3, Columns.Count).End(xlToLeft).Column
+        sRow = DATA_ROW
+        sColumn = Cells(LABEL_ROW, Columns.Count).End(xlToLeft).Column
         
         ' データのある行まで出力
-        Do While Cells(Row, 2).Value <> ""
-            Dim row_text As String
-            row_text = ""
-            For i = 1 To Column
+        Do While Cells(sRow, 2).Value <> ""
+            Dim sRowText As String
+            sRowText = ""
+            For i = 1 To sColumn
                 If i <> 1 Then
-                    row_text = row_text & ","
+                    sRowText = sRowText & ","
                 End If
-                row_text = row_text & Cells(Row, i).Value
+                sRowText = sRowText & Cells(sRow, i).Value
             Next i
-            .WriteText row_text, 1
-            Row = Row + 1
+            .WriteText sRowText, 1
+            sRow = sRow + 1
         Loop
         .SaveToFile sFileName, 2
         .Close

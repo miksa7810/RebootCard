@@ -18,22 +18,20 @@ End Sub
 
 ' 出力シートの数式を更新
 Sub UpdateFormula(ByVal Target As Range)
-    sCellName = Cells(DROPDOWN_ROW, Target.Column).Value
-    If sCellName <> "" Then
-        ' 名前が設定されている場合リストがあるか確認
-        sIsNames = False
-        For Each Data In ActiveWorkbook.Names
-            If sCellName = Data.name Then
-                sIsNames = True
-                Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1,MATCH(" & ActiveSheet.name & "!" & Target.Address & "," & Data.name & ", 0) - 1)"
+    With Cells(Target.Row, Target.Column).Validation
+        On Error Resume Next
+            .Type
+            If Err.Number <> 0 Then
+                Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
+            Else
+                If .Type = xlValidateList Then
+                    Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1,MATCH(" & ActiveSheet.name & "!" & Target.Address & "," & Mid(.Formula1, 2) & ", 0) - 1)"
+                Else
+                    Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
+                End If
             End If
-        Next
-        If sIsNames = False Then
-            Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
-        End If
-    Else
-        Sheets("output").Cells(Target.Row, Target.Column).Value = "=IF(ISBLANK(" & ActiveSheet.name & "!" & Target.Address & "),-1," & ActiveSheet.name & "!" & Target.Address & ")"
-    End If
+        On Error GoTo 0
+    End With
 End Sub
 
 ' ルールに応じてrefシートを更新
